@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+
+message RequestAddUser{
+  string user_name = 1;
+  string file_id = 2;
+}
+
+message ResponseAddUser{
+  int32 id = 1;
+}
+
+message TextMessage{
+  string text = 1;
+}
+
+message FileMessage{
+  string file_id = 1;
+}
+
+message ImageMessage{
+  string file_id = 1;
+}
+
+message RequestSendMessage{
+  int32 sender_id = 1;
+  int32 receiver_id = 2;
+  oneof content{
+    TextMessage text = 3;
+    FileMessage file = 4;
+    ImageMessage image = 5;
+  }
+}
+
+message ResponseSendMessage{
+
+}
+
+service messaging{
+  rpc AddUser(RequestAddUser) returns(ResponseAddUser);
+  rpc SendMessage(RequestSendMessage) returns(ResponseSendMessage);
+}
