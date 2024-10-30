@@ -1,7 +1,7 @@
 package main
 
 import (
-	grpc2 "bale-go-bootcamp/grpc"
+	"bale-go-bootcamp/gogrpc/grpc2"
 	"context"
 	"log"
 )
@@ -11,10 +11,11 @@ type messagingService struct {
 }
 
 func (s *messagingService) mustEmbedUnimplementedMessagingServer() {
-	log.Fatal("Unimplemented Messaging Server")
+	log.Print("Unimplemented Messaging Server")
 }
 
 func (s *messagingService) SendMessage(ctx context.Context, req *grpc2.RequestSendMessage) (*grpc2.ResponseSendMessage, error) {
+
 	return &grpc2.ResponseSendMessage{}, nil
 }
 

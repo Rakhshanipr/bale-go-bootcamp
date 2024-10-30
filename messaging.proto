@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "/grpc2";
+option go_package = ".";
 
 
 message RequestAddUser{
