@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "/grpc2";
+
 
 message RequestAddUser{
   string user_name = 1;
@@ -22,21 +24,46 @@ message ImageMessage{
   string file_id = 1;
 }
 
+message MessageContent{
+  oneof content{
+    TextMessage text = 1;
+    FileMessage file = 2;
+    ImageMessage image = 3;
+  }
+}
+
 message RequestSendMessage{
   int32 sender_id = 1;
   int32 receiver_id = 2;
-  oneof content{
-    TextMessage text = 3;
-    FileMessage file = 4;
-    ImageMessage image = 5;
-  }
+  MessageContent content = 3;
 }
 
 message ResponseSendMessage{
 
 }
 
-service messaging{
+
+message RequestFetchMessage{
+  int32 id = 1;
+}
+
+message ResponseFetchMessage{
+  MessageContent content = 3;
+}
+
+
+message RequestGetUserMessages{
+  int32 id = 1;
+}
+
+message ResponseGetUserMessages{
+  repeated MessageContent contents = 1;
+}
+
+
+service Messaging{
   rpc AddUser(RequestAddUser) returns(ResponseAddUser);
   rpc SendMessage(RequestSendMessage) returns(ResponseSendMessage);
+  rpc FetchMessage(RequestFetchMessage) returns(ResponseFetchMessage);
+  rpc GetUserMessages(RequestGetUserMessages) returns(ResponseGetUserMessages);
 }
